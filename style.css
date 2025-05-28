@@ -1,0 +1,26 @@
+* {
+    overflow: hidden;
+    user-select: none;
+    margin: 0;
+    background: #fff;
+}
+
+@font-face {
+    font-family: VCR_OSD;
+    font-weight: bold;
+    src: url(Assets/VCR_OSD.ttf);
+}
+
+/* @font-face {
+    font-family: MisterPixel;
+    font-weight: bold;
+    src: url(Assets/MisterPixel.ttf);
+} */
+
+canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    image-rendering: pixelated;
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charter</title>
+</head>
+<body>
+    <p></p>
+    <script>window.addEventListener("contextmenu", (e) => e.preventDefault(), false);</script>
+    <script>
+        // Since this is a rhythm game, I had to do a "Charter" where I get to create charts (levels) for song
+
+
+        const chartsSrc = "./Assets/Charts/";
+
+        const BGM = new Audio(chartsSrc+"dova/track.wav");
+
+        const keys = {
+            0:0,
+            2:1,
+            "KeyW":2,
+            "KeyS":3
+        };
+
+        const key = {};
+
+        let string = "[\n";
+        let string2 = "[</br>";
+        let started = false;
+
+        window.addEventListener("keydown", (e) =>
+        {
+            if (!started) return;
+
+            if (!key[e.code]) key[e.code] = true;
+            if (key[e.code] && keys[e.code] != undefined)
+            {
+                string += `{"type":${keys[e.code]}, "time":${BGM.currentTime}, "active":true},\n`;
+                string2 += `{"type":${keys[e.code]}, "time":${BGM.currentTime}, "active":true},</br>`;
+            }
+
+            if (e.code == "Enter") {console.log(string+"]"); document.querySelector("p").innerHTML = string2+"]"};
+        });
+        window.addEventListener("keyup", (e) =>
+        {
+            if (!started) return;
+
+            if (key[e.code]) delete key[e.code];
+        });
+
+        window.addEventListener("mousedown", (e) =>
+        {
+            if (!started) return;
+
+            if (keys[e.button] != undefined)
+            {
+                string += `{"type":${keys[e.button]}, "time":${BGM.currentTime}, "active":true},\n`;
+                string2 += `{"type":${keys[e.button]}, "time":${BGM.currentTime}, "active":true},</br>`;
+            }
+        });
+
+        window.addEventListener("click", () =>
+        {
+            started = true;
+            BGM.play();
+            BGM.currentTime = 0;
+        }, {once:true});
+    </script>
+</body>
+</html>
